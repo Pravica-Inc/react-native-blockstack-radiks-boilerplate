@@ -10,10 +10,7 @@ export default class GroupInvitation extends Model {
   public userPublicKey: string | undefined;
 
   public static schema: ISchema = {
-    userGroupId: {
-      type: String,
-      decrypted: true,
-    },
+    userGroupId: String,
     signingKeyPrivateKey: String,
     signingKeyId: {
       type: String,

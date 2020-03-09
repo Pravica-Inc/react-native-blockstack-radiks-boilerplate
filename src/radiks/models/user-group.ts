@@ -45,7 +45,7 @@ export default class UserGroup extends Model {
   public static async myGroups() {
     const { userGroups } = await userGroupKeys();
     const keys = Object.keys(userGroups);
-    return this.fetchList({ key: keys.join(',') });
+    return this.fetchList({ _id: keys.join(',') });
   }
 
   // async makeGaiaConfig() {
