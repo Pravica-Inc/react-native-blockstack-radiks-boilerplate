@@ -31,16 +31,13 @@ export default class GroupMembership extends Model {
       type: String,
       decrypted: true,
     },
-    userGroupId: {
-      type: String,
-      decrypted: true,
-    },
+    userGroupId: String,
   };
 
   public static async fetchUserGroups(): Promise<IUserGroupKeys> {
     const { username } = loadUserData();
     const memberships: any[] = await GroupMembership.fetchList({
-      key: username,
+      username,
     });
     const signingKeys: IUserGroupKeys['signingKeys'] = {};
     memberships.forEach(({ attrs }) => {
@@ -59,12 +56,9 @@ export default class GroupMembership extends Model {
 
   public static cacheKeys = async () => {
     const { userGroups, signingKeys } = await GroupMembership.fetchUserGroups();
-    console.log(userGroups, signingKeys);
     const groupKeys = await userGroupKeys();
-    console.log('eh', loadUserData());
     const self: any = await User.findById(loadUserData().username);
     const key: any = await SigningKey.findById(self.attrs.personalSigningKeyId);
-    console.log('hena')
     groupKeys.personal = key.attrs;
     groupKeys.signingKeys = signingKeys;
     groupKeys.userGroups = userGroups;

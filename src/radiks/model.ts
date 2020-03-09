@@ -13,7 +13,6 @@ import {
 import { count, destroyModel, find, IFindQuery, sendNewGaiaUrl } from './api';
 import Streamer from './streamer';
 import { IAttrs, ISchema } from './types';
-import { removeDubs } from '../hooks/CustomHooks/helpers';
 
 const EVENT_NAME = 'MODEL_STREAM_EVENT';
 
@@ -208,13 +207,9 @@ export default class Model {
   public async fetch({ decrypt = true } = {}): Promise<this | undefined> {
     const query = {
       _id: this._id,
-      radiksType: this.modelName(),
     };
     const { results } = await find(query);
-    const removedDubsResult = removeDubs(
-      results.map((res: any) => ({ ...res, id: res._id })),
-    );
-    const [attrs] = removedDubsResult;
+    const [attrs] = results;
     // Object not found on the server so we return undefined
     if (!attrs) {
       return undefined;
@@ -226,7 +221,7 @@ export default class Model {
     if (decrypt) {
       await this.decrypt();
     }
-    // await this.afterFetch();
+    await this.afterFetch();
     return this;
   }
 
