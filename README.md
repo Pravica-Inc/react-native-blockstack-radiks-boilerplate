@@ -2,7 +2,7 @@
 
 ![Pravica](./pravica.png)
 
-This repository is made by Pravica team contains a react-native example of using [Blockstack](https://docs.blockstack.org/develop/add_auth.html) **Authentication** with [Radiks](https://docs.blockstack.org/develop/radiks-intro.html)
+This repository is made by Pravica team contains a react-native example of using [Blockstack-Auth](https://docs.blockstack.org/develop/add_auth.html) with [Radiks](https://docs.blockstack.org/develop/radiks-intro.html)
 
 
 
